@@ -82,7 +82,7 @@ function CadastroCategoria() {
                 </form>
            
 
-                <ul>
+               { /*<ul>
                     {categorias.map((categoria) => {
                         return (
                             <li key={`${categoria.titulo}`}>
@@ -90,7 +90,7 @@ function CadastroCategoria() {
                             </li>
                         )
                     })}
-                </ul>
+                </ul>*/}
             
 
                 <Link to="/">
