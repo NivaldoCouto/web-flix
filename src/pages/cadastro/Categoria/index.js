@@ -3,44 +3,27 @@ import { Link } from 'react-router-dom';
 import PageDefault from '../../../components/PageDefault';
 import FormField from '../../../components/FormField';
 import Button from '../../../components/Button';
+import useForm from '../../../hooks/useForm';
 
 
 function CadastroCategoria() {
-    const valoresIniciais = {
-        nome: '',
-        descricao: '',
-        cor: '',
-    }
+
+  const valoresIniciais = {
+    nome: '',
+    descricao: '',
+    cor: '',
+    };
+
+    const {handleChange, values, clearForm} = useForm(valoresIniciais);
+
+   
     const [categorias, setCategorias] = useState([]);
-    const [values, setValues] = useState(valoresIniciais);
 
-    function setValue(chave, valor) {
-        setValues({
-            ...values,
-            [chave]: valor,
-        })
-    }
- 
-    function handleChange(infosDoEvento) {
-        setValue(
-            infosDoEvento.target.getAttribute('name'),
-            infosDoEvento.target.value);
-    }
-
- /* 
-     function handleChange(infosDoEvento) {
-         const { getAttribute, value} = infosDoEvento.target;
-         setValue(
-            getAttribute('name'),
-            value
-          );  
-    }
-*/
  useEffect(() => {
   
       const URL_TOP = window.location.hostname.includes('localhost')
       ? 'http://localhost:8080/categorias'
-      :  'http://localhost:8080/categorias';// colocar a URL heroku
+      :  'https://nivaflix.herokuapp.com/categorias';// colocar a URL heroku
       fetch(URL_TOP)
         .then(async (respostaDoServidor) => {
         
@@ -63,7 +46,7 @@ function CadastroCategoria() {
                         ...categorias,
                         values
                     ]);
-                    setValues(valoresIniciais)
+                    clearForm()
                  }}>
 
                    
@@ -97,14 +80,13 @@ function CadastroCategoria() {
                         Cadastrar
                     </Button>
                 </form>
-                <div>
-                    loding...
-                </div>
+           
+
                 <ul>
                     {categorias.map((categoria) => {
                         return (
-                            <li key={`${categoria.nome}`}>
-                                {categoria.nome}
+                            <li key={`${categoria.titulo}`}>
+                                {categoria.titulo}
                             </li>
                         )
                     })}
