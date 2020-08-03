@@ -11,9 +11,9 @@ function CadastroVideo() {
     const history = useHistory();
     const [categorias, setCategorias] = useState([]);  
       const { handleChange, values } = useForm({
-        titulo: 'Video Padrão',
-        url: 'https://www.youtube.com/watch?v=Gojqw9BQ5qY',
-        categoria: 'Front End',
+        titulo: '',
+        url: '',
+        categoria: '',
 
     });
 ///////////////////
