@@ -1,20 +1,32 @@
-import React from 'react';
+import React, { useEffect, useState }  from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import PageDefault from '../../../components/PageDefault';
 import useForm from '../../../hooks/useForm';
 import FormField from '../../../components/FormField';
 import Button from '../../../components/Button';
 import videosRepository from '../../../repositories/videos';
+import categoriasRepository from '../../../repositories/categorias';
 
 function CadastroVideo() {
     const history = useHistory();
-    const { handleChange, values } = useForm({
+    const [categorias, setCategorias] = useState([]);  
+      const { handleChange, values } = useForm({
         titulo: 'Video Padrão',
         url: 'https://www.youtube.com/watch?v=Gojqw9BQ5qY',
         categoria: 'Front End',
 
     });
+///////////////////
+    useEffect(() => {
+        categoriasRepository
+        .getAll()
+        .then((categoriasFromServer) => {
+            setCategorias(categoriasFromServer);
+        });
+        
+    }, []);  
 
+    console.log(categorias);
     return (
         <PageDefault>
            <h1>Cadastro de Video</h1> 
@@ -22,13 +34,19 @@ function CadastroVideo() {
             <form onSubmit={(event) => {
                 event.preventDefault();
                // alert('Video Cadastrado com Sucesso!!!');
+               const categoriaEscolhida = categorias.find((categoria) => {
+                    return categoria.titulo === values.categoria;
+               });
+
+               console.log('categoriaEscolhida', categoriaEscolhida);
+
                videosRepository.create({
                    titulo: values.titulo,
                    url: values.url,
-                   categoriaId: 1,
+                   categoriaId: categoriaEscolhida.id,
                })
                     .then(() => {
-                        console.log('Cadastrou com sucesso');
+                        console.log('Cadastrou com sucesso!');
                         history.push('/');
                     });
             
@@ -47,7 +65,7 @@ function CadastroVideo() {
                 />
                  <FormField
                     label="Categoria"
-                    name="url"
+                    name="categoria"
                     value={values.categoria}
                     onChange={handleChange}
                 />
