@@ -1,5 +1,5 @@
- <h1 aling="center>web-flix</h1>
-## Desenvolvimento de um projeto da EAD Alura tendo como base site NETFLIX na semana da Imersão React.
+ <h1 align="center">web-flix</h1>
+<h3 align="center">Desenvolvimento de um projeto da EAD Alura tendo como base site NETFLIX na semana da Imersão React.</h3>
 
 - 👋 Hi, I’m @NivaldoCouto
 - 👀 I’m interested in software development
